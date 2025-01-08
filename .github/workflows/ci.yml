@@ -3,7 +3,7 @@ on:
   push: # on push to current branch
   workflow_dispatch: # manual trigger
 jobs:
-  heal-dev:
+  heal-dev-valid-files:
     name: Heal.dev
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +12,37 @@ jobs:
         with:
           api-token: ${{ secrets.HEAL_API_TOKEN }} # Required: Your Heal API token.
           suite: "demo/file-validation"
+          stories: |
+            [
+              {
+                "slug": "upload-valid-file"
+              }
+            ]
+          wait-for-results: "yes" # Optional: Wait for results
+          comment-on-pr: "yes" # Optional: comment test results on PRs
+          domain: "https://api-staging.heal.dev"
+  heal-dev-invalid-files:
+    name: Heal.dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Heal Suite Execution
+        uses: heal-dev/trigger@v1
+        with:
+          api-token: ${{ secrets.HEAL_API_TOKEN }} # Required: Your Heal API token.
+          suite: "demo/file-validation"
+          stories: |
+            [
+              {
+                "slug": "invalid-files",
+                "test-config":
+                  {
+                    "variables": {
+                       "file": "format",
+                       "reason": "invalid file structure",
+                    }
+                  }
+              }
+            ]
           wait-for-results: "yes" # Optional: Wait for results
           comment-on-pr: "yes" # Optional: comment test results on PRs
           domain: "https://api-staging.heal.dev"
