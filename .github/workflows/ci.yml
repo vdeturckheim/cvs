@@ -13,4 +13,5 @@ jobs:
           api-token: ${{ secrets.HEAL_API_TOKEN }} # Required: Your Heal API token.
           suite: "demo/file-validation"
           wait-for-results: "yes" # Optional: Wait for results
-          comment-on-pr: "yes" # Optional: comment test results on PRs                domain: "https://api-staging.heal.dev"
+          comment-on-pr: "yes" # Optional: comment test results on PRs
+          domain: "https://api-staging.heal.dev"
