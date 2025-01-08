@@ -38,7 +38,7 @@ jobs:
                   {
                     "variables": {
                        "file": "format",
-                       "reason": "invalid file structure",
+                       "reason": "invalid file structure"
                     }
                   }
               }
